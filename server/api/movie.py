@@ -7,9 +7,7 @@ from models import (
 
 
 def create_movie():
-    # TODO: check for required fields
     data_json = request.get_json()
-
     title = data_json.get('title')
     genre = data_json.get('genre')
     if title is None:

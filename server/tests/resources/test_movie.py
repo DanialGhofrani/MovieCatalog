@@ -6,6 +6,7 @@ from server.models import (
 from ..base import EndpointTestCase
 
 
+#  TODO: all of these urls should be fetched from settings file
 class TestMovies(EndpointTestCase):
     """test the movie endpoint"""
     def test_get_empty(self):
@@ -106,7 +107,7 @@ class TestMovies(EndpointTestCase):
             title='minions',
             genre='comedy'
         )
-        bob = Actor.get_or_create(name='Bob')
+        bob = Actor.get_or_create(name='Bob dyllan')
         alice = Actor.get_or_create(name='Alice')
 
         MovieActor.get_or_create(
@@ -117,7 +118,7 @@ class TestMovies(EndpointTestCase):
             movie_uuid=minions.uuid,
             actor_uuid=bob.uuid
         )
-        res = self.test_client.get('http://localhost:5555/movie/?actor=Bob')
+        res = self.test_client.get('http://localhost:5555/movie/?actor=Bob%20dyllan')
         self.assertEqual(res.status_code, 200)
         self.assertEqual(len(res.json), 1)
         self.assertEqual(res.json[0].get('title'), 'minions')

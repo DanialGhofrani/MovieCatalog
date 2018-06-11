@@ -4,7 +4,6 @@ from datetime import datetime
 from .movie import Movie
 from .actor import Actor
 from peewee import (
-    TextField,
     DateTimeField,
     ForeignKeyField
 )
@@ -25,9 +24,6 @@ class MovieActor(BaseModel):
         if movie_uuid is None or actor_uuid is None:
             raise ValueError('valid movie and actor ids required')
         with cls._meta.database.atomic():
-            # TODO: are these reqd?
-            actor = None
-            movie = None
             try:
                 movie = Movie.get(Movie.uuid == movie_uuid)
             except Movie.DoesNotExist:
@@ -39,7 +35,6 @@ class MovieActor(BaseModel):
                 raise ValueError('actor was not found')
 
             try:
-                # here we are forced to use the int ids due to peewee Foreign Key magic
                 return MovieActor.get(
                     (MovieActor.movie == movie) &
                     (MovieActor.actor == actor)
