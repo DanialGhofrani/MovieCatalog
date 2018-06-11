@@ -10,11 +10,6 @@ export default (state = initialState, action) => {
         moviesToDisplay: action.movies
       });
 
-    case 'ADD_MOVIE':
-      return Object.assign({}, state, {
-        moviesToDisplay: [...state.moviesToDisplay, action.movie]
-      });
-
     case 'START_REQUEST':
       return Object.assign({}, state, {
         isLoading: true

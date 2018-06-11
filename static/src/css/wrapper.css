@@ -46,3 +46,18 @@
     padding:1em;
     font-size: 0.5em;
 }
+
+.filter-box{
+    padding:1em;
+    display:inline;
+    align: right;
+}
+
+.filter-label{
+    font-size: 0.5em;
+}
+
+.filter-input{
+    width:10em;
+}
+

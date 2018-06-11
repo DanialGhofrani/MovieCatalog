@@ -8,13 +8,6 @@ export function replaceMovies(movies) {
   };
 }
 
-export function addMovie(movie) {
-  return {
-    type: 'ADD_MOVIE',
-    movie
-  };
-}
-
 export function beginRequest() {
   return {
     type: 'START_REQUEST'
@@ -35,17 +28,16 @@ export function createMovie(data) {
   return async function(dispatch) {
     dispatch(beginRequest());
     const movie = await postMovie(data);
-    dispatch(addMovie(movie));
     await sleep(3000);
     dispatch(endRequest());
   };
 }
 
-export function fetchMovies() {
+export function fetchMovies(filters) {
   return async function(dispatch) {
     dispatch(beginRequest());
-    const movies = await getMovies();
-    await sleep(1000);
+    const movies = await getMovies(filters);
+    await sleep(2000);
     dispatch(replaceMovies(movies));
     dispatch(endRequest());
   };

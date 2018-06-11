@@ -17,9 +17,11 @@ class Wrapper extends React.Component {
     super(props);
     this.state = {
       showCreationModal: false,
-      movieFilterMessage: 'All movies:'
+      movieFilterMessage: 'All movies:',
+      genreFilter: '',
+      actorFilter: ''
     };
-    this.props.reduxStore.dispatch(fetchMovies());
+    this.props.reduxStore.dispatch(fetchMovies(''));
   }
 
   onModalCancel = () => {
@@ -28,18 +30,66 @@ class Wrapper extends React.Component {
     });
   };
 
-  onModalSave = data => {
+  onModalSave = async data => {
     this.setState({
       showCreationModal: false
     });
-    // POST to create movie and also update the store
-    this.props.reduxStore.dispatch(createMovie(data));
+    await this.props.reduxStore.dispatch(createMovie(data));
+    await this.props.reduxStore.dispatch(fetchMovies(''));
+    this.setState({
+      movieFilterMessage: 'All movies ',
+      genreFilter: '',
+      actorFilter: ''
+    });
   };
 
-  showModal = () => {
+  showCreateModal = () => {
     this.setState({
       showCreationModal: true
     });
+  };
+
+  filterResults = () => {
+    let params;
+    if (
+      this.state.genreFilter.trim() == '' &&
+      this.state.actorFilter.trim() == ''
+    ) {
+      params = '';
+      this.setState({
+        movieFilterMessage: 'All movies:'
+      });
+    } else if (this.state.genreFilter.trim() == '') {
+      //this is potentially bad due to no encoding
+      params = '?actor=' + this.state.actorFilter;
+      this.setState({
+        movieFilterMessage: 'Movies with actor: ' + this.state.actorFilter
+      });
+    } else if (this.state.actorFilter.trim() == '') {
+      params = '?genre=' + this.state.genreFilter;
+      this.setState({
+        movieFilterMessage: 'Movies with genre: ' + this.state.genreFilter
+      });
+    } else {
+      params =
+        '?genre=' + this.state.genreFilter + '&actor=' + this.state.actorFilter;
+      this.setState({
+        movieFilterMessage:
+          'Movies with genre: ' +
+          this.state.genreFilter +
+          ' and actor: ' +
+          this.state.actorFilter
+      });
+    }
+    this.props.reduxStore.dispatch(fetchMovies(params));
+  };
+
+  updateGenreFilter = event => {
+    this.setState({ genreFilter: event.target.value });
+  };
+
+  updateActorFilter = event => {
+    this.setState({ actorFilter: event.target.value });
   };
 
   render() {
@@ -63,9 +113,28 @@ class Wrapper extends React.Component {
       <div className="wrapper">
         <div>{this.props.reduxStore.getState().numberOfMovies}</div>
         <div className="controls-container">
-          <button className="control-button" onClick={this.showModal}>
+          <button className="control-button" onClick={this.showCreateModal}>
             create a new movie!
           </button>
+          <button className="control-button" onClick={this.filterResults}>
+            filter the results!
+          </button>
+          <div className="filter-box">
+            <span className="filter-label"> by actor: </span>
+            <input
+              className="filter-input"
+              type="text"
+              onChange={this.updateActorFilter}
+            />
+          </div>
+          <div className="filter-box">
+            <span className="filter-label"> by genre: </span>
+            <input
+              className="filter-input"
+              type="text"
+              onChange={this.updateGenreFilter}
+            />
+          </div>
         </div>
         <div className="filter-message">{this.state.movieFilterMessage}</div>
         <div className="movie-container">
