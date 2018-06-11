@@ -16,7 +16,8 @@ class Wrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCreationModal: false
+      showCreationModal: false,
+      movieFilterMessage: 'All movies:'
     };
     this.props.reduxStore.dispatch(fetchMovies());
   }
@@ -62,8 +63,11 @@ class Wrapper extends React.Component {
       <div className="wrapper">
         <div>{this.props.reduxStore.getState().numberOfMovies}</div>
         <div className="controls-container">
-          <button onClick={this.showModal}>create a new movie!</button>
+          <button className="control-button" onClick={this.showModal}>
+            create a new movie!
+          </button>
         </div>
+        <div className="filter-message">{this.state.movieFilterMessage}</div>
         <div className="movie-container">
           {movies.map(emp => <MovieBox name={emp.title} genre={emp.genre} />)}
         </div>

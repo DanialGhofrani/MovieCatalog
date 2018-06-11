@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/wrapper.css';
+import '../../css/movie-box.css';
 
 export default class MovieBox extends React.Component {
   render() {

@@ -35,8 +35,14 @@
     display:flex;
     justify-content: center;
 }
-.movie-box {
-    font-size: 1em;
-    margin:1em;
-    background-color:lightblue;
+
+.filter-message {
+    font-size:2em;
+    padding:1em;
+    text-align: center;
+}
+
+.control-button {
+    padding:1em;
+    font-size: 0.5em;
 }

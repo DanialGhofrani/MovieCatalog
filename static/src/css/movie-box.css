@@ -1,0 +1,14 @@
+.movie-box {
+    padding:2.5em;
+    border-style:solid;
+    border-color:blue;
+    font-size: 1em;
+    margin:1em;
+    background-color:lightblue;
+}
+
+
+.movie-box:hover {
+    border-color:red;
+    border-style:solid;
+}
