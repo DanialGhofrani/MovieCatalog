@@ -1,0 +1,26 @@
+
+.create-movie-modal {
+    padding:4em;
+    background-color:lightyellow;
+    text-align: center;
+
+}
+
+.padding-around{
+    padding:1em;
+}
+
+.error-message {
+    color:red;
+}
+
+.input-label{
+    padding:20px;
+}
+.large-textbox{
+    width:15em;
+}
+
+input {
+    width:9em;
+}

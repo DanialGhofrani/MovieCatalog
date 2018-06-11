@@ -1,0 +1,7 @@
+.venv/
+static/node_modules
+static/dist
+static/npm-debug.log
+*.pyc
+\.DS_Store
+flask_session
