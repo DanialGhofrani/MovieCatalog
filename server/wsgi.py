@@ -5,8 +5,7 @@ from models import Movie, Actor, MovieActor
 from databases import PostgresDB
 
 
-
-def init():  # pragma: nocover
+def init():
     PostgresDB.initialize_postgres()
     if not Movie.table_exists():
         Movie.create_table()
