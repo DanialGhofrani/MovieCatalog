@@ -30,8 +30,8 @@ export default class CreateMovieModal extends React.Component {
       return;
     }
     let dat = {
-      title: this.state.title,
-      genre: this.state.genre
+      title: this.state.title.trim(),
+      genre: this.state.genre.trim()
     };
 
     //this is fragile code, needs to be improved:
