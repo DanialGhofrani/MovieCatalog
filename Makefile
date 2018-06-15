@@ -9,4 +9,6 @@ start:
 	ENV=LOCAL .venv/bin/python3 server/wsgi.py
 
 test:
-	ENV=TEST .venv/bin/nosetests -v server/tests
+	dropdb movie_catalogue_test > /dev/null || true
+	createdb movie_catalogue_test > /dev/null
+	ENV=TEST .venv/bin/nosetests -v -s server/tests
